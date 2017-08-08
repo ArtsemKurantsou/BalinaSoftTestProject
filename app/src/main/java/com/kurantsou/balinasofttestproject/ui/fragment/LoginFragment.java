@@ -16,7 +16,7 @@ import com.kurantsou.balinasofttestproject.R;
 import com.kurantsou.balinasofttestproject.api.Api;
 import com.kurantsou.balinasofttestproject.model.UserCredentials;
 
-import rx.schedulers.Schedulers;
+import rx.android.schedulers.AndroidSchedulers;
 
 
 public class LoginFragment extends Fragment implements View.OnClickListener {
@@ -68,15 +68,18 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         userCredentials.setPassword(etPassword.getText().toString());
         Api.getApi()
                 .login(userCredentials)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(loginAnswer -> {
-                            //Toast.makeText(getActivity().getApplicationContext(), "Login success!", Toast.LENGTH_LONG).show();
                             Log.d(TAG, "login: success, username: " + userCredentials.getLogin() + ", token:" + loginAnswer.getToken());
                             onSignInListener.onSignIn(userCredentials, loginAnswer.getToken());
                         },
                         throwable -> {
                             Log.e(TAG, "login: failed", throwable);
                             btnLogin.setEnabled(true);
-                            //Toast.makeText(getActivity(), throwable.getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Login failed! " + throwable.getMessage(), Toast.LENGTH_LONG).show();
+                        },
+                        () -> {
+                            btnLogin.setEnabled(true);
                         });
     }
 }

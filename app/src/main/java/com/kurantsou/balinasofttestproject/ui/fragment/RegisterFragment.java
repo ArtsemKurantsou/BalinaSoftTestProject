@@ -16,7 +16,7 @@ import com.kurantsou.balinasofttestproject.R;
 import com.kurantsou.balinasofttestproject.api.Api;
 import com.kurantsou.balinasofttestproject.model.UserCredentials;
 
-import rx.schedulers.Schedulers;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,14 +72,17 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         userCredentials.setPassword(etPassword.getText().toString());
         Api.getApi()
                 .register(userCredentials)
-                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(loginAnswer -> {
-                            //Toast.makeText(getActivity().getApplicationContext(), "Register success!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity().getApplicationContext(), "Register success!", Toast.LENGTH_LONG).show();
                             Log.d(TAG, "register: success, username: " + userCredentials.getLogin() + ", token: " + loginAnswer.getToken());
                             onSignInListener.onSignIn(userCredentials, loginAnswer.getToken());
                         },
                         throwable -> {
                             Log.e("Register", "register: ", throwable);
+                            Toast.makeText(getActivity(), "Register failed! " + throwable.getMessage(), Toast.LENGTH_LONG).show();
+                        },
+                        () -> {
                             btnRegister.setEnabled(true);
                         });
     }
