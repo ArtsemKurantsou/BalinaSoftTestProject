@@ -3,4 +3,8 @@
     <color name="colorPrimary">#8bc34a</color>
     <color name="colorPrimaryDark">#5a9216</color>
     <color name="colorAccent">#bef67a</color>
+    <color name="tabText">#D1E7B7</color>
+    <color name="tabIndicator">@android:color/white</color>
+    <color name="tabSelectedText">#F6FBF2</color>
+    <color name="colorBackground">#F5F5F5</color>
 </resources>

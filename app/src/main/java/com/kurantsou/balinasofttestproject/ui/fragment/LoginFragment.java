@@ -1,4 +1,4 @@
-package com.kurantsou.balinasofttestproject.fragment;
+package com.kurantsou.balinasofttestproject.ui.fragment;
 
 
 import android.os.Bundle;
@@ -13,8 +13,6 @@ import android.widget.Toast;
 import com.kurantsou.balinasofttestproject.R;
 import com.kurantsou.balinasofttestproject.api.Api;
 import com.kurantsou.balinasofttestproject.model.UserCredentials;
-
-import rx.schedulers.Schedulers;
 
 
 public class LoginFragment extends Fragment implements View.OnClickListener {

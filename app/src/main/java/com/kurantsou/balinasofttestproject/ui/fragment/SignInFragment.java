@@ -1,4 +1,4 @@
-package com.kurantsou.balinasofttestproject.fragment;
+package com.kurantsou.balinasofttestproject.ui.fragment;
 
 
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kurantsou.balinasofttestproject.R;
-import com.kurantsou.balinasofttestproject.fragment.adapter.SignInPagerAdapter;
+import com.kurantsou.balinasofttestproject.ui.fragment.adapter.SignInPagerAdapter;
 
 
 /**

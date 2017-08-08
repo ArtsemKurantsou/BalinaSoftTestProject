@@ -6,9 +6,9 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="password">Password</string>
-    <string name="btn_login">login</string>
+    <string name="btn_login">log in</string>
     <string name="confirm_password">Confirm password</string>
-    <string name="btn_register">register</string>
+    <string name="btn_register">sign up</string>
 
     <string-array name="sign_in_titles">
         <item>@string/login</item>

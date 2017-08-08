@@ -1,4 +1,4 @@
-package com.kurantsou.balinasofttestproject.fragment;
+package com.kurantsou.balinasofttestproject.ui.fragment;
 
 
 import android.os.Bundle;

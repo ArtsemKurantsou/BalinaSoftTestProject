@@ -1,4 +1,4 @@
-package com.kurantsou.balinasofttestproject.fragment.adapter;
+package com.kurantsou.balinasofttestproject.ui.fragment.adapter;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.kurantsou.balinasofttestproject.R;
-import com.kurantsou.balinasofttestproject.fragment.LoginFragment;
-import com.kurantsou.balinasofttestproject.fragment.RegisterFragment;
+import com.kurantsou.balinasofttestproject.ui.fragment.LoginFragment;
+import com.kurantsou.balinasofttestproject.ui.fragment.RegisterFragment;
 
 /**
  * Created by artem on 07.08.2017.
