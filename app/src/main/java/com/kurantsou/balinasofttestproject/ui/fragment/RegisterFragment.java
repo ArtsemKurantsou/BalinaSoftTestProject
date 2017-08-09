@@ -2,6 +2,8 @@ package com.kurantsou.balinasofttestproject.ui.fragment;
 
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.Observable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,10 +14,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.kurantsou.balinasofttestproject.BR;
 import com.kurantsou.balinasofttestproject.R;
 import com.kurantsou.balinasofttestproject.api.Api;
+import com.kurantsou.balinasofttestproject.databinding.FragmentRegisterBinding;
 import com.kurantsou.balinasofttestproject.model.UserCredentials;
+import com.kurantsou.balinasofttestproject.model.uimodel.RegisterModel;
 
+import java.net.HttpURLConnection;
+import java.util.Map;
+
+import retrofit2.adapter.rxjava.HttpException;
 import rx.android.schedulers.AndroidSchedulers;
 
 /**
@@ -25,10 +35,9 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "RegisterFragment";
 
-    private EditText etLogin;
-    private EditText etPassword;
-    private EditText etConfirmPassword;
-    private Button btnRegister;
+    FragmentRegisterBinding mBinding;
+
+    RegisterModel model;
 
     SignInFragment.OnSignInListener onSignInListener;
 
@@ -47,14 +56,29 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
-        etLogin = view.findViewById(R.id.etLogin);
-        etPassword = view.findViewById(R.id.etPassword);
-        etConfirmPassword = view.findViewById(R.id.etConfirmPassword);
-        btnRegister = view.findViewById(R.id.btnRegister);
-        btnRegister.setOnClickListener(this);
+        mBinding = DataBindingUtil.bind(view);
+
+        model = new RegisterModel(getActivity());
+        mBinding.setModel(model);
+
+        model.addOnPropertyChangedCallback(propertyChangedCallback);
+
+        mBinding.btnRegister.setOnClickListener(this);
 
         return view;
     }
+
+    private Observable.OnPropertyChangedCallback propertyChangedCallback = new Observable.OnPropertyChangedCallback() {
+        @Override
+        public void onPropertyChanged(Observable sender, int propertyId) {
+            if (propertyId == BR.loginError)
+                    mBinding.loginWrapper.setError(model.getLoginError());
+            else if (propertyId == BR.passwordError)
+                mBinding.passwordWrapper.setError(model.getPasswordError());
+            else if (propertyId == BR.confirmPasswordError)
+                mBinding.confirmPasswordWrapper.setError(model.getConfirmPasswordError());
+        }
+    };
 
     @Override
     public void onClick(View view) {
@@ -66,10 +90,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     }
 
     private void register() {
-        btnRegister.setEnabled(false);
+        mBinding.btnRegister.setEnabled(false);
         UserCredentials userCredentials = new UserCredentials();
-        userCredentials.setLogin(etLogin.getText().toString());
-        userCredentials.setPassword(etPassword.getText().toString());
+        userCredentials.setLogin(model.getLogin());
+        userCredentials.setPassword(model.getPassword());
         Api.getApi()
                 .register(userCredentials)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -80,10 +104,12 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                         },
                         throwable -> {
                             Log.e("Register", "register: ", throwable);
-                            Toast.makeText(getActivity(), "Register failed! " + throwable.getMessage(), Toast.LENGTH_LONG).show();
+                            if (throwable instanceof HttpException && ((HttpException) throwable).code() == HttpURLConnection.HTTP_BAD_REQUEST){
+                                model.setLoginError(getString(R.string.login_used));
+                            }
                         },
                         () -> {
-                            btnRegister.setEnabled(true);
+                            mBinding.btnRegister.setEnabled(true);
                         });
     }
 }

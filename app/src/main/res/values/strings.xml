@@ -9,6 +9,15 @@
     <string name="btn_login">log in</string>
     <string name="confirm_password">Confirm password</string>
     <string name="btn_register">sign up</string>
+    <string name="wrong_login_or_password">Wrong login or password</string>
+    <string name="connection_error">Problems with connection</string>
+    <string name="some_error">Something went wrong</string>
+    <string name="login_length_error">Login length must be between 4 and 32 chars</string>
+    <string name="password_length_error">Password length must be between 8 and 32 chars</string>
+    <string name="confirm_password_error">Passwords must be the same</string>
+    <string name="login_used">Login already used</string>
+
+
 
     <string-array name="sign_in_titles">
         <item>@string/login</item>

@@ -13,21 +13,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_percent="0.1"
+            tools:layout_editor_absoluteY="25dp"
+            tools:layout_editor_absoluteX="39dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guidelineRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.9" />
+            app:layout_constraintGuide_percent="0.9"
+            tools:layout_editor_absoluteY="25dp"
+            tools:layout_editor_absoluteX="346dp" />
 
         <EditText
             android:id="@+id/etLogin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
             android:layout_marginTop="100dp"
             android:ems="10"
             android:hint="@string/login"
@@ -41,8 +43,6 @@
             android:id="@+id/etPassword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
             android:layout_marginTop="16dp"
             android:ems="10"
             android:hint="@string/password"
@@ -51,19 +51,29 @@
             app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
             app:layout_constraintTop_toBottomOf="@+id/etLogin" />
 
+        <TextView
+            android:id="@+id/txtError"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/errorTextColor"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineLeft"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
         <Button
             android:id="@+id/btnLogin"
             style="@style/LoginButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginTop="32dp"
             android:text="@string/btn_login"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@+id/guidelineLeft"
             app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
-            app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtError" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
